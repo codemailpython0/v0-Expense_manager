@@ -41,7 +41,7 @@ export function ExpenseManagerContent({ expenses, categories }: ExpenseManagerCo
               <p className="text-gray-300">Manage all your expenses</p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Button
                 variant="outline"
                 onClick={() => setShowAddForm(!showAddForm)}
