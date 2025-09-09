@@ -22,13 +22,17 @@ export default async function ExpensesPage() {
     .eq("user_id", user.id)
     .order("date", { ascending: false })
 
-  const { data: categories } = await supabase.from("categories").select("*").order("name")
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("*")
+    .order("name")
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="container mx-auto p-6">
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl mb-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            {/* Left side: Back + Title */}
             <div className="flex items-center gap-4">
               <Link href="/dashboard">
                 <Button
@@ -46,12 +50,23 @@ export default async function ExpensesPage() {
               </div>
             </div>
 
-            <Link href="/expenses/add">
-              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Expense
+            {/* Right side: View List + Add Expense */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/20 text-white hover:bg-white/10 bg-transparent w-full sm:w-auto"
+              >
+                View List
               </Button>
-            </Link>
+
+              <Link href="/expenses/add" className="w-full sm:w-auto">
+                <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full sm:w-auto">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Expense
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
