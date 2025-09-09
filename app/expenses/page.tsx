@@ -33,7 +33,7 @@ export default async function ExpensesPage() {
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             {/* Left side: Back + Title */}
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-2">
               <Link href="/dashboard">
                 <Button
                   variant="outline"
