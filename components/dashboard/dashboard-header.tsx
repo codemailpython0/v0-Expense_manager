@@ -23,22 +23,16 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
 
   return (
     <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* User Info */}
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">
-            Welcome back, {user.full_name || user.email}
-          </h1>
-          <p className="text-gray-300 text-sm sm:text-base">
-            Here's your expense overview for today
-          </p>
+          <h1 className="text-3xl font-bold text-white mb-2">Welcome back, {user.full_name || user.email}</h1>
+          <p className="text-gray-300">Here's your expense overview for today</p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+        <div className="flex items-center gap-3">
           <Button
             onClick={() => router.push("/expenses/add")}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-full sm:w-auto"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add Expense
@@ -47,7 +41,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
           <Button
             variant="outline"
             onClick={handleSignOut}
-            className="border-white/20 text-white hover:bg-white/10 bg-transparent w-full sm:w-auto"
+            className="border-white/20 text-white hover:bg-white/10 bg-transparent"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sign Out
