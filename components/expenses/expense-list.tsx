@@ -75,37 +75,37 @@ export function ExpenseList({ expenses, categories }: ExpenseListProps) {
   const totalAmount = filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount), 0)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Filters */}
       <Card className="backdrop-blur-xl bg-white/10 border-white/20 shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <Filter className="w-5 h-5" />
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-white flex items-center gap-2 text-lg md:text-xl">
+            <Filter className="w-4 h-4 md:w-5 md:h-5" />
             Filters
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <CardContent className="p-4 md:p-6 pt-0">
+          <div className="grid grid-cols-1 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <Input
                 placeholder="Search expenses..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-11 md:h-10"
               />
             </div>
 
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="bg-white/10 border-white/20 text-white">
+              <SelectTrigger className="bg-white/10 border-white/20 text-white h-11 md:h-10">
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>
               <SelectContent className="bg-slate-800 border-white/20">
-                <SelectItem value="all" className="text-white hover:bg-white/10">
+                <SelectItem value="all" className="text-white hover:bg-white/10 py-3">
                   All Categories
                 </SelectItem>
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.name} className="text-white hover:bg-white/10">
+                  <SelectItem key={category.id} value={category.name} className="text-white hover:bg-white/10 py-3">
                     <span className="flex items-center gap-2">
                       <span>{category.icon}</span>
                       {category.name}
@@ -116,22 +116,22 @@ export function ExpenseList({ expenses, categories }: ExpenseListProps) {
             </Select>
           </div>
 
-          <div className="mt-4 flex items-center justify-between">
-            <p className="text-gray-300">
+          <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <p className="text-gray-300 text-sm">
               Showing {filteredExpenses.length} of {expenses.length} expenses
             </p>
-            <p className="text-white font-bold">Total: ₹{totalAmount.toFixed(2)}</p>
+            <p className="text-white font-bold text-sm md:text-base">Total: ₹{totalAmount.toFixed(2)}</p>
           </div>
         </CardContent>
       </Card>
 
       {/* Expense List */}
-      <div className="grid gap-4">
+      <div className="grid gap-3 md:gap-4">
         {filteredExpenses.length === 0 ? (
           <Card className="backdrop-blur-xl bg-white/10 border-white/20 shadow-xl">
-            <CardContent className="text-center py-12">
-              <p className="text-gray-400 text-lg">No expenses found</p>
-              <p className="text-gray-500 mt-2">Try adjusting your search or filters</p>
+            <CardContent className="text-center py-8 md:py-12">
+              <p className="text-gray-400 text-base md:text-lg">No expenses found</p>
+              <p className="text-gray-500 mt-2 text-sm">Try adjusting your search or filters</p>
             </CardContent>
           </Card>
         ) : (
@@ -140,30 +140,34 @@ export function ExpenseList({ expenses, categories }: ExpenseListProps) {
               key={expense.id}
               className="backdrop-blur-xl bg-white/10 border-white/20 shadow-xl hover:bg-white/15 transition-all"
             >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-2xl">{getCategoryIcon(expense.category)}</span>
-                      <div>
-                        <h3 className="font-semibold text-white text-lg">{expense.title}</h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Badge variant="outline" className="border-white/20 text-gray-300">
+              <CardContent className="p-4 md:p-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex-1 w-full">
+                    <div className="flex items-start gap-3 mb-2">
+                      <span className="text-xl md:text-2xl">{getCategoryIcon(expense.category)}</span>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-white text-base md:text-lg truncate">{expense.title}</h3>
+                        <div className="flex flex-wrap items-center gap-2 mt-1">
+                          <Badge variant="outline" className="border-white/20 text-gray-300 text-xs">
                             {expense.category}
                           </Badge>
-                          <span className="text-sm text-gray-400">{new Date(expense.date).toLocaleDateString()}</span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs md:text-sm text-gray-400">
+                            {new Date(expense.date).toLocaleDateString()}
+                          </span>
+                          <span className="text-xs text-gray-500 hidden sm:inline">
                             {formatDistanceToNow(new Date(expense.created_at), { addSuffix: true })}
                           </span>
                         </div>
                       </div>
                     </div>
-                    {expense.description && <p className="text-gray-300 text-sm mt-2">{expense.description}</p>}
+                    {expense.description && (
+                      <p className="text-gray-300 text-sm mt-2 line-clamp-2">{expense.description}</p>
+                    )}
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-white">₹{Number(expense.amount).toFixed(2)}</p>
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
+                    <div className="text-left sm:text-right">
+                      <p className="text-xl md:text-2xl font-bold text-white">₹{Number(expense.amount).toFixed(2)}</p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -171,7 +175,7 @@ export function ExpenseList({ expenses, categories }: ExpenseListProps) {
                         variant="outline"
                         size="sm"
                         onClick={() => router.push(`/expenses/edit/${expense.id}`)}
-                        className="border-white/20 text-white hover:bg-white/10"
+                        className="border-white/20 text-white hover:bg-white/10 h-9 w-9 p-0"
                       >
                         <Edit className="w-4 h-4" />
                       </Button>
@@ -181,7 +185,7 @@ export function ExpenseList({ expenses, categories }: ExpenseListProps) {
                         size="sm"
                         onClick={() => handleDelete(expense.id)}
                         disabled={isDeleting === expense.id}
-                        className="border-red-400/20 text-red-400 hover:bg-red-400/10"
+                        className="border-red-400/20 text-red-400 hover:bg-red-400/10 h-9 w-9 p-0"
                       >
                         {isDeleting === expense.id ? (
                           <div className="w-4 h-4 animate-spin rounded-full border-2 border-red-400 border-t-transparent" />
