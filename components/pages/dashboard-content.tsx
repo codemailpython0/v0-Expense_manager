@@ -26,22 +26,24 @@ interface DashboardContentProps {
 export function DashboardContent({ user, expenses }: DashboardContentProps) {
   return (
     <div className="h-full overflow-y-auto">
-      <div className="container mx-auto p-6 space-y-6">
+      <div className="container mx-auto p-3 sm:p-4 md:p-6 space-y-4 md:space-y-6">
         {/* Welcome Section */}
-        <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl">
+        <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-xl md:rounded-2xl p-4 md:p-6 shadow-2xl">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome back, {user.full_name || user.email}</h1>
-            <p className="text-gray-300">Here's your expense overview for today</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 text-balance">
+              Welcome back, {user.full_name || user.email}
+            </h1>
+            <p className="text-gray-300 text-sm md:text-base">Here's your expense overview for today</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="lg:col-span-2 space-y-4 md:space-y-6">
             <ExpenseOverview expenses={expenses} />
             <ExpenseChart expenses={expenses} />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <QuickStats expenses={expenses} />
             <RecentTransactions expenses={expenses} />
           </div>
