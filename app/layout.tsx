@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Expense Manager",
   description: "Track and manage your expenses easily",
+  viewport: "width=device-width, initial-scale=1.0",
   generator: "v0.app",
 }
 
